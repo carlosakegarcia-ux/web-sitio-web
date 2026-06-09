@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sitio-web</title>
+    <meta name="description" content="Tu negocio, siempre disponible">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primario: #d4a574;
+            --secundario: #f9f0e8;
+            --texto: #2c2c2c;
+            --blanco: #ffffff;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Lato', sans-serif; color: var(--texto); background: var(--blanco); }
+
+        /* NAVEGACIÓN */
+        nav {
+            position: fixed; top: 0; width: 100%; z-index: 100;
+            background: rgba(255,255,255,0.95); backdrop-filter: blur(10px);
+            padding: 1rem 2rem; display: flex; justify-content: space-between;
+            align-items: center; box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+        }
+        .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--primario); font-weight: 700; }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a { text-decoration: none; color: var(--texto); font-weight: 400; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--primario); }
+
+        /* HERO */
+        .hero {
+            min-height: 100vh; display: flex; align-items: center; justify-content: center;
+            background: linear-gradient(135deg, var(--secundario) 0%, #fff5ec 100%);
+            text-align: center; padding: 6rem 2rem 4rem;
+        }
+        .hero-content { max-width: 700px; }
+        .hero-badge {
+            display: inline-block; background: var(--primario); color: white;
+            padding: 0.4rem 1.2rem; border-radius: 50px; font-size: 0.85rem;
+            letter-spacing: 2px; text-transform: uppercase; margin-bottom: 1.5rem;
+        }
+        .hero h1 {
+            font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 6vw, 4.5rem);
+            color: var(--texto); line-height: 1.2; margin-bottom: 1.2rem;
+        }
+        .hero p { font-size: 1.2rem; color: #666; margin-bottom: 2.5rem; font-weight: 300; line-height: 1.8; }
+        .btn-primary {
+            display: inline-block; background: var(--primario); color: white;
+            padding: 1rem 2.5rem; border-radius: 50px; text-decoration: none;
+            font-weight: 700; font-size: 1rem; transition: all 0.3s;
+            box-shadow: 0 4px 20px rgba(212,165,116,0.4);
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(212,165,116,0.5); }
+        .btn-secondary {
+            display: inline-block; border: 2px solid var(--primario); color: var(--primario);
+            padding: 1rem 2.5rem; border-radius: 50px; text-decoration: none;
+            font-weight: 700; margin-left: 1rem; transition: all 0.3s;
+        }
+        .btn-secondary:hover { background: var(--primario); color: white; }
+
+        /* SECCIÓN GENÉRICA */
+        section { padding: 5rem 2rem; }
+        .container { max-width: 1100px; margin: 0 auto; }
+        .section-title {
+            font-family: 'Playfair Display', serif; font-size: 2.5rem;
+            text-align: center; margin-bottom: 0.8rem; color: var(--texto);
+        }
+        .section-subtitle { text-align: center; color: #888; margin-bottom: 3.5rem; font-size: 1.1rem; }
+        .divider { width: 60px; height: 3px; background: var(--primario); margin: 0.8rem auto 2rem; border-radius: 2px; }
+
+        /* PRODUCTOS */
+        .productos { background: var(--secundario); }
+        .productos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+        .producto-card {
+            background: white; border-radius: 16px; padding: 2rem;
+            text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .producto-card:hover { transform: translateY(-5px); box-shadow: 0 12px 40px rgba(0,0,0,0.12); }
+        .producto-emoji { font-size: 3rem; margin-bottom: 1rem; }
+        .producto-card h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; margin-bottom: 0.8rem; }
+        .producto-card p { color: #777; font-size: 0.95rem; line-height: 1.6; margin-bottom: 1rem; }
+        .precio { display: inline-block; background: var(--secundario); color: var(--primario); padding: 0.3rem 1rem; border-radius: 20px; font-weight: 700; font-size: 0.9rem; }
+
+        /* NOSOTROS */
+        .nosotros-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+        .nosotros-texto h2 { font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 1.2rem; }
+        .nosotros-texto p { color: #666; line-height: 1.9; margin-bottom: 1rem; }
+        .valores { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.5rem; }
+        .valor { display: flex; align-items: center; gap: 0.8rem; font-size: 0.95rem; }
+        .valor span { font-size: 1.4rem; }
+        .nosotros-img {
+            background: linear-gradient(135deg, var(--primario), #e8c49a);
+            border-radius: 20px; height: 400px; display: flex; align-items: center;
+            justify-content: center; font-size: 8rem;
+        }
+
+        /* CONTACTO */
+        .contacto { background: var(--secundario); }
+        .contacto-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+        .contacto-info h3 { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 1.5rem; }
+        .contacto-item { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.5rem; }
+        .contacto-icon { font-size: 1.5rem; margin-top: 0.1rem; }
+        .contacto-item p { color: #555; line-height: 1.6; }
+        .contacto-item strong { display: block; color: var(--texto); margin-bottom: 0.2rem; }
+        .redes { display: flex; gap: 1rem; margin-top: 2rem; }
+        .red-link {
+            display: flex; align-items: center; gap: 0.5rem;
+            background: white; padding: 0.6rem 1.2rem; border-radius: 30px;
+            text-decoration: none; color: var(--texto); font-size: 0.9rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08); transition: all 0.3s;
+        }
+        .red-link:hover { background: var(--primario); color: white; transform: translateY(-2px); }
+        .wa-btn {
+            display: inline-flex; align-items: center; gap: 0.8rem;
+            background: #25D366; color: white; padding: 1rem 2rem;
+            border-radius: 50px; text-decoration: none; font-weight: 700;
+            margin-top: 1.5rem; transition: all 0.3s;
+            box-shadow: 0 4px 20px rgba(37,211,102,0.3);
+        }
+        .wa-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(37,211,102,0.4); }
+
+        /* FOOTER */
+        footer {
+            background: #1a1a1a; color: #aaa; text-align: center;
+            padding: 2rem; font-size: 0.9rem;
+        }
+        footer strong { color: white; }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .nosotros-grid, .contacto-grid { grid-template-columns: 1fr; }
+            .nosotros-img { height: 250px; }
+            .btn-secondary { margin-left: 0; margin-top: 1rem; display: block; text-align: center; }
+            .valores { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-logo">🎂 sitio-web</div>
+    <ul class="nav-links">
+        <li><a href="#inicio">Inicio</a></li>
+        <li><a href="#productos">Productos</a></li>
+        <li><a href="#nosotros">Nosotros</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+    </ul>
+</nav>
+
+<section class="hero" id="inicio">
+    <div class="hero-content">
+        <div class="hero-badge">✨ Repostería Artesanal</div>
+        <h1>sitio-web</h1>
+        <p>Tu negocio, siempre disponible</p>
+        <a href="#productos" class="btn-primary">Ver catálogo</a>
+        <a href="https://wa.me/52?text=Hola,%20me%20interesa%20conocer%20sus%20productos" class="btn-secondary" target="_blank">💬 WhatsApp</a>
+    </div>
+</section>
+
+<section class="productos" id="productos">
+    <div class="container">
+        <h2 class="section-title">Nuestros Productos</h2>
+        <div class="divider"></div>
+        <p class="section-subtitle">Elaborados con ingredientes reales · Sin premezclas · Con amor artesanal</p>
+        <div class="productos-grid">
+            
+        </div>
+    </div>
+</section>
+
+<section id="nosotros">
+    <div class="container">
+        <div class="nosotros-grid">
+            <div class="nosotros-texto">
+                <h2>Nuestra Historia</h2>
+                <p>Somos una pastelería de autor comprometida con la calidad artesanal. Cada pieza que creamos lleva ingredientes reales: mantequilla europea, chocolate belga, frutas frescas — nunca premezclas industriales.</p>
+                <p>Nos especializamos en pasteles personalizados para los momentos más importantes de tu vida. Bodas, XV años, eventos corporativos o simplemente celebrar que estás vivo.</p>
+                <div class="valores">
+                    <div class="valor"><span>🧈</span> Mantequilla europea</div>
+                    <div class="valor"><span>🍫</span> Chocolate belga</div>
+                    <div class="valor"><span>🌿</span> Sin conservadores</div>
+                    <div class="valor"><span>❤️</span> Hecho a mano</div>
+                </div>
+            </div>
+            <div class="nosotros-img">🎂</div>
+        </div>
+    </div>
+</section>
+
+<section class="contacto" id="contacto">
+    <div class="container">
+        <h2 class="section-title">Contáctanos</h2>
+        <div class="divider"></div>
+        <p class="section-subtitle">Estamos aquí para hacer realidad tu pedido especial</p>
+        <div class="contacto-grid">
+            <div class="contacto-info">
+                <h3>¿Listo para pedir?</h3>
+                
+                
+                <div class="contacto-item"><div class="contacto-icon">📍</div><p><strong>Ubicación</strong>Guadalajara, Jalisco</p></div>
+                <div class="contacto-item"><div class="contacto-icon">⏰</div><p><strong>Pedidos con anticipación</strong>Mínimo 5 días hábiles · Entregas L–S 10:00–18:00</p></div>
+                <div class="redes">
+                    
+                    
+                </div>
+                <a href="https://wa.me/52?text=Hola,%20me%20interesa%20conocer%20sus%20productos" class="wa-btn" target="_blank">
+                    💬 Pedir por WhatsApp
+                </a>
+            </div>
+            <div>
+                <div style="background:white;border-radius:16px;padding:2rem;box-shadow:0 4px 20px rgba(0,0,0,0.06);">
+                    <h3 style="font-family:'Playfair Display',serif;margin-bottom:1.5rem;">Haz tu pedido</h3>
+                    <p style="color:#666;line-height:1.8;margin-bottom:1rem;">
+                        Escríbenos por WhatsApp con los siguientes datos:
+                    </p>
+                    <ul style="color:#555;line-height:2;padding-left:1.2rem;">
+                        <li>Tipo de producto</li>
+                        <li>Número de porciones</li>
+                        <li>Fecha de entrega</li>
+                        <li>Temática o diseño</li>
+                        <li>Alergias o restricciones</li>
+                    </ul>
+                    <a href="https://wa.me/52?text=Hola,%20me%20interesa%20conocer%20sus%20productos" class="wa-btn" target="_blank" style="margin-top:1.5rem;display:inline-flex;">
+                        💬 Iniciar pedido
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <p>© 2026 <strong>sitio-web</strong> · Repostería Artesanal · Guadalajara, Jalisco</p>
+    <p style="margin-top:0.5rem;font-size:0.8rem;color:#555;">Sitio creado con Hermes Agent 🤖</p>
+</footer>
+
+</body>
+</html>
